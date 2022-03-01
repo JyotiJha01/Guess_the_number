@@ -1,1 +1,1 @@
-web: gunicorn app:app
+web: gunicorn GUI_game01:GUI_game01
