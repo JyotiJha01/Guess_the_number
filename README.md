@@ -5,6 +5,6 @@
 python game.py
 
 
-![image](https://user-images.githubusercontent.com/58852392/156117745-bc23e2d6-1853-46d2-955b-ed609ac304d0.png)
+![image](https://user-images.githubusercontent.com/58852392/157438815-9e7500d7-b119-46d2-b311-441f3da2a0c6.png)
 
 
