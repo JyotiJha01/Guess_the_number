@@ -1,66 +1,76 @@
 from tkinter import *
 import random
+import os
 
 win = Tk()
-win.title('PythonGuides')
-#win.geometry('600x400')
 win.config(bg='#5671A6')
+win.geometry('600x400')
+win.title("Number Guessing Game")
 
-random_num = random.randint(0, 20)
-chance = 5
-var = IntVar()
-display = StringVar()
+result = StringVar()
+chances = IntVar()
+chances1= IntVar()
+choice= IntVar()
+no=random.randint(1,20)
+result.set('Hii, I am thinking of a number between 1 to 20.')
+chances.set(5)
+chances1.set(chances.get())
 
-def check_guess():
-    global random_num
-    global chance
-    usr_input = var.get()
-    if chance > 0:
-        if usr_input == random_num:
-            msg = f'You won! {random_num} is the right answer.'
-        elif usr_input > random_num:
-            chance -= 1
-            msg = f'{usr_input} is greater. You have {chance} attempt left.'
-        elif usr_input < random_num:
-            chance -= 1
-            msg = f'{usr_input} is smaller. You have {chance} attempt left.'
-        else:
-            msg = 'Something went wrong!'
-    else:
-        msg = f'You Lost! you have {chance} attempt left.'
+def fun():
+  chances1.set(chances.get())
+  if chances.get()>0:
 
-    display.set(msg)
+    if choice.get() > 20 or choice.get()<0:
+      result.set("You just lost 1 Chance")
+      chances.set(chances.get()-1)
+      chances1.set(chances.get())
+    
+    elif no==choice.get():
+      result.set("Congratulation YOU WON!!!")
+      chances.set(chances.get()-1)
+      chances1.set(chances.get())
+      
+    elif no > choice.get():
+      result.set("Your guess was too low: Guess a number higher ")
+      chances.set(chances.get()-1)
+      chances1.set(chances.get())
+    elif no < choice.get():
+      result.set(
+          "Your guess was too High: Guess a number Lower ")
+      chances.set(chances.get()-1)
+      chances1.set(chances.get())
+  else:
+     result.set(
+         "Game Over You Lost")
 
+def restart():
+  no=random.randint(1,20)
+  result.set("Guess a number between 1 to 20 ")
+  chances.set(5)
+  chances1.set(chances.get())
 
-Label(
-    win,
-    text='Number Guessing Game',
-    font=('sans-serif', 20),
-    relief=SOLID,
-    padx=10,
-    pady=10,
-    bg='#F27D16'
-).pack(pady=(10, 0))
+ent1=Entry(win, textvariable=choice, width=3,
+             font=('sans-serif', 50))
+ent1.place(relx=0.5, rely=0.3, anchor=CENTER)
 
-Entry(
-    win,
-    textvariable=var,
-    font=('sans-serif', 18)
-).pack(pady=(50, 10))
+ent2 = Entry(win, textvariable=result, width=50,
+             font=('sans-serif', 15))
+ent2.place(relx=0.5, rely=0.7, anchor=CENTER)
 
-Button(
-    win,
-    text='Submit Guess',
-    font=('sans-serif', 18),
-    command=check_guess
-).pack()
+ent3 = Entry(win, text=chances1, width=2,
+             font=('sans-serif', 24), relief=SOLID)
+ent3.place(relx=0.61, rely=0.85, anchor=CENTER)
 
-Label(
-    win,
-    textvariable=display,
-    bg='#5671A6',
-    font=('sans-serif', 14)
-).pack(pady=(20,0))
+msg = Label(win, text='Guess a number',
+            font=('sans-serif', 25), relief=SOLID)
+msg.place(relx=0.5, rely=0.09, anchor=CENTER)
 
+msg2 = Label(win, text='Remaninig Chances',
+             font=('sans-serif', 25) )
+msg2.place(relx=0.3, rely=0.85, anchor=CENTER)
+
+try_no = Button(win, width=8, text='TRY', font=(
+    'sans-serif', 25), command=fun, relief=GROOVE)
+try_no.place(relx=0.5, rely=0.5, anchor=CENTER)
 
 win.mainloop()
